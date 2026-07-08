@@ -187,14 +187,14 @@ textarea.fi{resize:none;}
 .chpv{font-size:12px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
 .cht{font-size:11px;color:var(--t3);}
 .chunr{background:var(--p);color:#fff;font-size:10px;font-weight:700;border-radius:99px;padding:1px 5px;}
-.mwrp{flex:1;overflow-y:auto;padding:12px 15px;display:flex;flex-direction:column;gap:8px;}
+.mwrp{flex:1;overflow-y:auto;padding:12px 15px;display:flex;flex-direction:column;gap:8px;min-height:0;}
 .mrow{display:flex;gap:6px;max-width:76%;}
 .mrow.me{align-self:flex-end;flex-direction:row-reverse;}
 .mbub{padding:9px 13px;border-radius:13px;font-size:13px;line-height:1.5;}
 .mbub.me{background:var(--p);color:#fff;border-bottom-right-radius:3px;}
 .mbub.u{background:var(--bg);color:var(--t);border-bottom-left-radius:3px;}
 .mtm{font-size:10px;color:var(--t3);align-self:flex-end;}
-.chin-bar{padding:9px 13px;border-top:1px solid var(--bd);display:flex;gap:7px;background:#fff;}
+.chin-bar{padding:9px 13px;padding-bottom:max(9px,env(safe-area-inset-bottom));border-top:1px solid var(--bd);display:flex;gap:7px;background:#fff;flex-shrink:0;}
 .chin-in{flex:1;background:var(--bg);border:none;border-radius:20px;padding:9px 13px;font-size:13px;font-family:'Prompt',sans-serif;outline:none;}
 .chsn{width:37px;height:37px;background:var(--p);border:none;border-radius:50%;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .scds{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:13px 15px;}
@@ -243,7 +243,20 @@ textarea.fi{resize:none;}
 
 <div id="ordersPg" class="pw h"><div style="background:#fff;padding:13px 15px;border-bottom:1px solid var(--bd);font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px"><button onclick="goPage('profile')" style="background:none;border:none;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--t)" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><span>ອໍເດີ</span></div><div id="ordersList"></div></div>
 
-<div id="sellerPg" class="pw h"><div style="background:#fff;padding:13px 15px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:10px"><button onclick="goPage('profile')" style="background:none;border:none;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--t)" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><span style="font-size:16px;font-weight:700" id="sellerPgT">ຮ້ານ</span></div><button class="btn btn-p btn-sm" onclick="openM('addprod')">+ ເພີ່ມ</button></div><div class="scds"><div class="scd"><div class="snum" id="sellerPC">0</div><div class="slbl">ສິນຄ້າ</div></div><div class="scd"><div class="snum">0</div><div class="slbl">ອໍເດີ</div></div></div><div id="sellerProdList" style="padding:0 15px"></div></div>
+<div id="sellerPg" class="pw h"><div style="background:#fff;padding:13px 15px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:10px"><button onclick="goPage('profile')" style="background:none;border:none;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--t)" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><span style="font-size:16px;font-weight:700" id="sellerPgT">ຮ້ານ</span></div><button class="btn btn-p btn-sm" onclick="openM('addprod')">+ ເພີ່ມ</button></div><div class="scds"><div class="scd"><div class="snum" id="sellerPC">0</div><div class="slbl">ສິນຄ້າ</div></div><div class="scd"><div class="snum">0</div><div class="slbl">ອໍເດີ</div></div></div><div id="sellerQrSection" style="margin:10px 15px;background:#fff;border:1px solid var(--bd);border-radius:13px;padding:13px">
+  <div style="font-size:14px;font-weight:700;margin-bottom:10px">📲 QR ຮັບເງິນຂອງຮ້ານ</div>
+  <div id="currentQrDisplay" style="text-align:center;margin-bottom:10px">
+    <img id="currentQrImg" src="" style="max-width:160px;border-radius:10px;display:none">
+    <div id="currentQrEmpty" style="font-size:12px;color:var(--t3);padding:10px">ຍັງບໍ່ໄດ້ໃສ່ QR</div>
+  </div>
+  <div class="fg" style="margin-bottom:8px">
+    <label class="fl">ອັບໂຫຼດ / ປ່ຽນ QR ຮັບເງິນ</label>
+    <input type="file" id="sellerQrUpload" accept="image/*" style="width:100%;padding:8px;background:var(--bg);border:1.5px dashed var(--bd);border-radius:10px;font-size:13px;cursor:pointer">
+  </div>
+  <button onclick="updateShopQr()" class="btn btn-p btn-sm">💾 ບັນທຶກ QR</button>
+  <div id="sellerQrMsg" style="font-size:12px;margin-top:6px"></div>
+</div>
+<div id="sellerProdList" style="padding:0 15px"></div></div>
 
 <div id="ownerPg" class="pw h">
   <div style="background:var(--p);padding:13px 15px;display:flex;align-items:center;gap:10px">
@@ -338,6 +351,10 @@ textarea.fi{resize:none;}
 <div class="fg"><label class="fl">ອັບໂຫຼດບັດປະຈຳຕົວ *</label>
 <input type="file" id="shopIdCard" accept="image/*" style="width:100%;padding:9px;background:var(--bg);border:1.5px dashed var(--bd);border-radius:10px;font-size:13px;cursor:pointer">
 <div style="font-size:11px;color:var(--t3);margin-top:4px">ຮູບພາບ JPG/PNG ບໍ່ເກີນ 5MB</div>
+</div>
+<div class="fg"><label class="fl">QR Code ຮັບເງິນ (BCEL One / ອື່ນໆ)</label>
+<input type="file" id="shopQrCode" accept="image/*" style="width:100%;padding:9px;background:var(--bg);border:1.5px dashed var(--bd);border-radius:10px;font-size:13px;cursor:pointer">
+<div style="font-size:11px;color:var(--t3);margin-top:4px">ຮູບ QR ສຳລັບລູກຄ້າໂອນເງິນ (ຈະສະແດງຕອນລູກຄ້າຊຳລະ)</div>
 </div>
 <button class="btn btn-p" onclick="createShop()">ສົ່ງຄຳຂໍ</button></div></div></div>
 
@@ -460,7 +477,7 @@ textarea.fi{resize:none;}
 
 <div id="checkoutPg" class="h" style="position:fixed;inset:0;background:var(--bg);z-index:50;overflow-y:auto"><div style="background:var(--p);padding:11px 15px;display:flex;align-items:center;gap:11px"><button onclick="closeChk()" style="background:none;border:none;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><span style="font-size:15px;font-weight:700;color:#fff">ສຳເລັດການສັ່ງ</span></div><div id="chkCon"></div></div>
 
-<div id="chatWinPg" class="h" style="position:fixed;inset:0;background:#fff;z-index:50;display:flex;flex-direction:column"><div style="background:var(--p);padding:11px 15px;display:flex;align-items:center;gap:11px;flex-shrink:0"><button onclick="closeChat()" style="background:none;border:none;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><div class="chav" id="chatWinAv" style="width:34px;height:34px;font-size:14px"></div><span style="color:#fff;font-size:14px;font-weight:600" id="chatWinN"></span></div><div class="mwrp" id="chatMsgs"></div><div class="chin-bar"><input class="chin-in" id="chatIn" placeholder="ພິມ..." onkeydown="if(event.key==='Enter')sendMsg()"><button class="chsn" onclick="sendMsg()"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div></div>
+<div id="chatWinPg" class="h" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#fff;z-index:50;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom)"><div style="background:var(--p);padding:11px 15px;display:flex;align-items:center;gap:11px;flex-shrink:0"><button onclick="closeChat()" style="background:none;border:none;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><div class="chav" id="chatWinAv" style="width:34px;height:34px;font-size:14px"></div><span style="color:#fff;font-size:14px;font-weight:600" id="chatWinN"></span></div><div class="mwrp" id="chatMsgs"></div><div class="chin-bar"><input class="chin-in" id="chatIn" placeholder="ພິມ..." onkeydown="if(event.key==='Enter')sendMsg()"><button class="chsn" onclick="sendMsg()"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div></div>
 
 <div class="toast" id="toast"></div>
 
@@ -679,8 +696,41 @@ document.getElementById('chkBtn').addEventListener('click',openChk);
 function openChk(){if(!cart.length){toast('ຍັງບໍ່ມີ');return;}const tot=cart.reduce((s,p)=>s+p.price*(p.qty||1),0);const saved=JSON.parse(localStorage.getItem('jadr_'+(curUser?.id||'g'))||'[]');document.getElementById('chkCon').innerHTML=`<div style="background:#fff;margin:10px;border-radius:13px;padding:15px"><div style="font-size:14px;font-weight:700;margin-bottom:13px">ທີ່ຢູ່ຈັດສົ່ງ</div>${saved.length?`<div style="margin-bottom:13px">${saved.map((a,i)=>`<div id="sa_${i}" onclick="pickAddr(${i})" style="border:1.5px solid var(--bd);border-radius:10px;padding:11px;margin-bottom:7px;cursor:pointer"><div style="font-size:13px;font-weight:600">${a.name} | ${a.phone}</div><div style="font-size:11px;color:var(--t3);margin-top:1px">ບ້ານ${a.village} ${a.city} ${a.province}</div></div>`).join('')}<div onclick="document.getElementById('newAddrF').style.display=''" style="border:1.5px dashed var(--bd);border-radius:10px;padding:9px;text-align:center;font-size:13px;color:var(--p);cursor:pointer;margin-bottom:13px">+ ເພີ່ມ</div></div>`:''}<div id="newAddrF" style="${saved.length?'display:none':''}"><div class="g2"><div class="fg"><label class="fl">ຊື່ *</label><input class="fi" id="sn" placeholder="ຊື່"></div><div class="fg"><label class="fl">ເບີ *</label><input class="fi" id="sp" placeholder="020xxx"></div></div><div class="g2"><div class="fg"><label class="fl">ບ້ານ *</label><input class="fi" id="sv" placeholder="ບ້ານ"></div><div class="fg"><label class="fl">ເມືອງ *</label><input class="fi" id="sc" placeholder="ເມືອງ"></div></div><div class="fg"><label class="fl">ແຂວງ *</label><select class="fi" id="spv"><option value="">ເລືອກ</option>${['ນະຄອນຫຼວງວຽງຈັນ','ວຽງຈັນ','ບໍລິຄຳໄຊ','ຄຳມ່ວນ','ສະຫວັນນະເຂດ','ສາລະວັນ','ເຊກອງ','ຈຳປາສັກ','ອັດຕະປື','ຫຼວງພະບາງ','ຫຼວງນ້ຳທາ','ອຸດົມໄຊ','ບໍ່ແກ້ວ','ຜົ້ງສາລີ','ຊຽງຂວາງ','ຫົວພັນ','ໄຊສົມບູນ'].map(p=>`<option>${p}</option>`).join('')}</select></div><div class="fg"><label class="fl">ຂົນສົ່ງ</label><select class="fi" id="sco"><option>BCEL Express</option><option>Ninja Van Laos</option><option>Kerry Express</option><option>J&T Express</option><option>ຂົນສົ່ງອານຸສິດ</option><option>ຂົນສົ່ງມິໄຊ</option><option>ຂົນສົ່ງຮຸ່ງອາລຸ່ງ</option><option>ສົ່ງເອງ</option><option>ຮັບເອງ</option></select></div><div class="fg"><label class="fl">ໝາຍເຫດ</label><textarea class="fi" id="snt" placeholder="ໝາຍເຫດ..." style="height:45px"></textarea></div><div style="display:flex;align-items:center;gap:7px;margin-bottom:13px"><div class="tgl" id="savAdr" onclick="this.classList.toggle('on')"></div><span style="font-size:12px;color:var(--t3)">ບັນທຶກທີ່ຢູ່</span></div></div><div style="font-size:14px;font-weight:900;color:var(--p);margin:11px 0">₭${fmt(tot)}</div><button class="btn btn-p" onclick="goPayStep()">ຕໍ່ໄປ →</button></div>`;document.getElementById('checkoutPg').classList.remove('h');document.getElementById('mainNav').style.display='none';document.getElementById('mainTB').style.display='none';}
 function closeChk(){document.getElementById('checkoutPg').classList.add('h');document.getElementById('mainNav').style.display='';document.getElementById('mainTB').style.display='';}
 function pickAddr(i){const a=JSON.parse(localStorage.getItem('jadr_'+(curUser?.id||'g'))||'[]')[i];if(!a)return;document.querySelectorAll('[id^="sa_"]').forEach(el=>el.style.borderColor='var(--bd)');document.getElementById('sa_'+i).style.borderColor='var(--p)';document.getElementById('newAddrF').style.display='';document.getElementById('sn').value=a.name||'';document.getElementById('sp').value=a.phone||'';document.getElementById('sv').value=a.village||'';document.getElementById('sc').value=a.city||'';document.getElementById('spv').value=a.province||'';document.getElementById('sco').value=a.company||'';}
-function goPayStep(){const n=document.getElementById('sn')?.value.trim();const ph=document.getElementById('sp')?.value.trim();const v=document.getElementById('sv')?.value.trim();const c=document.getElementById('sc')?.value.trim();const pv=document.getElementById('spv')?.value;if(!n||!ph||!v||!c||!pv){toast('⚠️ ກອກໃຫ້ຄົບ');return;}const co=document.getElementById('sco')?.value||'';const nt=document.getElementById('snt')?.value||'';if(document.getElementById('savAdr')?.classList.contains('on')){const k='jadr_'+(curUser?.id||'g');const lst=JSON.parse(localStorage.getItem(k)||'[]');if(!lst.find(a=>a.name===n&&a.phone===ph)){lst.unshift({name:n,phone:ph,village:v,city:c,province:pv,company:co,note:nt});localStorage.setItem(k,JSON.stringify(lst.slice(0,5)));}}window._ship={name:n,phone:ph,village:v,city:c,province:pv,company:co,note:nt};const tot=cart.reduce((s,p)=>s+p.price*(p.qty||1),0);document.getElementById('chkCon').innerHTML=`<div style="background:#fff;margin:10px;border-radius:13px;padding:15px"><div class="ss">👤 ${n} | 📱 ${ph}<br>🏡 ບ້ານ${v} ເມືອງ${c}<br>🗺️ ${pv} | 🚚 ${co}${nt?`<br>📝 ${nt}`:''}</div><div style="font-size:15px;font-weight:900;color:var(--p);margin-bottom:13px">₭${fmt(tot)}</div><div class="ptbs"><div class="ptb on" id="ptb1" onclick="swPay('bcel')">🏦 BCEL One</div><div class="ptb" id="ptb2" onclick="swPay('wallet')">👛 Wallet</div></div><div id="bcelP"><div class="qrw"><img src="/mnt/user-data/uploads/IMG_4014.PNG" onerror="this.style.background='#f0f0f0'" alt="QR"><div style="font-size:12px;font-weight:600;margin-top:9px;color:var(--t2)">ສະແກນ BCEL One</div></div><div style="background:var(--bg);border-radius:10px;padding:13px;font-size:13px;color:var(--t2);line-height:2;margin-bottom:13px">1️⃣ BCEL One → ສະແກນ QR<br>2️⃣ ໃສ່ ₭${fmt(tot)}<br>3️⃣ ຢືນຢັນ</div><button class="btn btn-p" onclick="confOrder('BCEL')">✅ ຢືນຢັນ</button></div><div id="walletP" style="display:none"><div class="wcd"><div><div style="font-size:11px;opacity:.8">Wallet</div><div style="font-size:22px;font-weight:900">₭${fmt(parseInt(localStorage.getItem('jwal')||'0'))}</div></div><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><button class="btn btn-p" onclick="confOrder('Wallet')">👛 ₭${fmt(tot)}</button></div></div>`;}
+function goPayStep(){const n=document.getElementById('sn')?.value.trim();const ph=document.getElementById('sp')?.value.trim();const v=document.getElementById('sv')?.value.trim();const c=document.getElementById('sc')?.value.trim();const pv=document.getElementById('spv')?.value;if(!n||!ph||!v||!c||!pv){toast('⚠️ ກອກໃຫ້ຄົບ');return;}const co=document.getElementById('sco')?.value||'';const nt=document.getElementById('snt')?.value||'';if(document.getElementById('savAdr')?.classList.contains('on')){const k='jadr_'+(curUser?.id||'g');const lst=JSON.parse(localStorage.getItem(k)||'[]');if(!lst.find(a=>a.name===n&&a.phone===ph)){lst.unshift({name:n,phone:ph,village:v,city:c,province:pv,company:co,note:nt});localStorage.setItem(k,JSON.stringify(lst.slice(0,5)));}}window._ship={name:n,phone:ph,village:v,city:c,province:pv,company:co,note:nt};const tot=cart.reduce((s,p)=>s+p.price*(p.qty||1),0);// Load shop QR codes for items in cart
+setTimeout(async()=>{
+  try{
+    const shopIds=[...new Set(cart.map(p=>p.shop_id).filter(Boolean))];
+    if(shopIds.length>0){
+      const{data}=await db.from('shops').select('id,qr_code_url,name').in('id',shopIds);
+      if(data&&data[0]?.qr_code_url){
+        const img=document.getElementById('shopQrImg');
+        const ph=document.getElementById('shopQrPlaceholder');
+        if(img){img.src=data[0].qr_code_url;img.style.display='block';if(ph)ph.style.display='none';}
+      }
+    }
+  }catch(e){}
+},300);
+document.getElementById('chkCon').innerHTML=`<div style="background:#fff;margin:10px;border-radius:13px;padding:15px"><div class="ss">👤 ${n} | 📱 ${ph}<br>🏡 ບ້ານ${v} ເມືອງ${c}<br>🗺️ ${pv} | 🚚 ${co}${nt?`<br>📝 ${nt}`:''}</div><div style="font-size:15px;font-weight:900;color:var(--p);margin-bottom:13px">₭${fmt(tot)}</div><div class="ptbs"><div class="ptb on" id="ptb1" onclick="swPay('bcel')">🏦 BCEL One</div><div class="ptb" id="ptb2" onclick="swPay('wallet')">👛 Wallet</div></div><div id="bcelP"><div class="qrw"><div id="shopQrDisplay" style="text-align:center;padding:10px">
+  <img id="shopQrImg" src="" style="max-width:200px;max-height:200px;display:none;border-radius:8px" onerror="this.style.display=\'none\';document.getElementById(\'shopQrPlaceholder\').style.display=\'\'">
+  <div id="shopQrPlaceholder" style="width:200px;height:200px;background:#f0f0f0;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;margin:0 auto">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h7v7"/><path d="M14 17h3"/><path d="M17 14v3"/></svg>
+    <div style="font-size:12px;color:#aaa">ຮ້ານບໍ່ໄດ້ໃສ່ QR</div>
+  </div>
+</div><div style="font-size:12px;font-weight:600;margin-top:9px;color:var(--t2)">ສະແກນ BCEL One</div></div><div style="background:var(--bg);border-radius:10px;padding:13px;font-size:13px;color:var(--t2);line-height:2;margin-bottom:13px">1️⃣ BCEL One → ສະແກນ QR<br>2️⃣ ໃສ່ ₭${fmt(tot)}<br>3️⃣ ຢືນຢັນ</div><div style="background:#fef3c7;border-radius:10px;padding:12px;margin-bottom:11px;display:flex;align-items:flex-start;gap:9px">
+  <input type="checkbox" id="payConfirmChk" style="margin-top:2px;width:18px;height:18px;accent-color:var(--p);flex-shrink:0">
+  <label for="payConfirmChk" style="font-size:13px;color:#92400e;line-height:1.5">ຂ້າພະເຈົ້າໄດ້ໂອນເງິນ ₭${fmt(tot)} ຜ່ານ BCEL One ຕາມ QR ດ້ານເທິງແລ້ວ</label>
+</div>
+<button class="btn btn-p" onclick="checkAndConfirmOrder('BCEL')">✅ ຢືນຢັນການສັ່ງຊື້</button></div><div id="walletP" style="display:none"><div class="wcd"><div><div style="font-size:11px;opacity:.8">Wallet</div><div style="font-size:22px;font-weight:900">₭${fmt(parseInt(localStorage.getItem('jwal')||'0'))}</div></div><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><button class="btn btn-p" onclick="confOrder('Wallet')">👛 ₭${fmt(tot)}</button></div></div>`;}
 function swPay(t){document.getElementById('ptb1').classList.toggle('on',t==='bcel');document.getElementById('ptb2').classList.toggle('on',t==='wallet');document.getElementById('bcelP').style.display=t==='bcel'?'':'none';document.getElementById('walletP').style.display=t==='wallet'?'':'none';}
+function checkAndConfirmOrder(method){
+  if(method==='BCEL'){
+    if(!document.getElementById('payConfirmChk')?.checked){
+      toast('⚠️ ກະລຸນາຢືນຢັນວ່າໄດ້ໂອນເງິນແລ້ວກ່ອນ');
+      return;
+    }
+  }
+  confOrder(method);
+}
 async function confOrder(method){const t=T[lang];const tot=cart.reduce((s,p)=>s+p.price*(p.qty||1),0);const items=cart.map(p=>gname(p)).join(', ');const buyer=curUser?(curUser.user_metadata?.full_name||curUser.email):'Guest';const ship=window._ship||{};if(method==='Wallet'){const bal=parseInt(localStorage.getItem('jwal')||'0');if(bal<tot){toast('ຍອດບໍ່ພຽງພໍ');return;}localStorage.setItem('jwal',(bal-tot).toString());}try{
     const orderItems=cart.map(p=>({
       id:p.id,name_lo:p.name_lo,name_th:p.name_th,
@@ -795,7 +845,17 @@ async function createShop(){
     if(!upErr){const{data:u}=db.storage.from('product-images').getPublicUrl(path);idCardUrl=u.publicUrl;}
   }catch(e){}
   // Save shop
-  const shopData={owner_id:curUser.id,name,phone,whatsapp,address,description:desc,owner_name:ownerName,id_card_url:idCardUrl,status:'pending'};
+  // Upload QR code if provided
+  let qrCodeUrl='';
+  const qrFile=document.getElementById('shopQrCode')?.files[0];
+  if(qrFile){
+    try{
+      const qrPath=`shop-docs/${curUser.id}/qr_${Date.now()}.jpg`;
+      const{error:qrErr}=await db.storage.from('product-images').upload(qrPath,qrFile,{upsert:true});
+      if(!qrErr){const{data:qu}=db.storage.from('product-images').getPublicUrl(qrPath);qrCodeUrl=qu.publicUrl;}
+    }catch(e){}
+  }
+  const shopData={owner_id:curUser.id,name,phone,whatsapp,address,description:desc,owner_name:ownerName,id_card_url:idCardUrl,qr_code_url:qrCodeUrl||null,status:'pending'};
   try{
     const{data,error}=await db.from('shops').insert([shopData]).select().single();
     if(error)throw error;
@@ -814,7 +874,45 @@ async function createShop(){
   updateUI();
   setTimeout(()=>closeM('seller'),2500);
 }
-async function loadSellerProds(){const sn=isOwner()?'Jstar Official':(shop?.name||'');document.getElementById('sellerPgT').textContent=sn;const mp=prods.filter(p=>p.shop_name===sn||isOwner());document.getElementById('sellerPC').textContent=mp.length;document.getElementById('sellerProdList').innerHTML=mp.map(p=>`<div style="background:#fff;border:1px solid var(--bd);border-radius:11px;padding:11px;display:flex;align-items:center;gap:10px;margin-bottom:7px">${p.image_urls?.length?`<img src="${p.image_urls[0]}" style="width:48px;height:48px;border-radius:8px;object-fit:cover">`:`<div style="width:48px;height:48px;border-radius:8px;background:${p.bg_color||'#f0f0f0'};display:flex;align-items:center;justify-content:center;font-size:22px">${p.emoji||'📦'}</div>`}<div style="flex:1"><div style="font-size:13px;font-weight:600">${gname(p)}</div><div style="font-size:12px;color:var(--p);font-weight:700">₭${fmt(p.price)}</div></div><button onclick="editProd(new Event('c'),${p.id})" style="background:var(--bg);border:1px solid var(--bd);border-radius:7px;padding:5px 9px;cursor:pointer;font-size:12px">✏️</button><button onclick="delProd(new Event('c'),${p.id})" class="btn-r">🗑️</button></div>`).join('')||'<div style="text-align:center;padding:40px;color:var(--t3)">ຍັງບໍ່ມີ</div>';}
+async function loadSellerQr(){
+  if(!shop?.id)return;
+  const img=document.getElementById('currentQrImg');
+  const empty=document.getElementById('currentQrEmpty');
+  if(shop.qr_code_url){
+    if(img){img.src=shop.qr_code_url;img.style.display='block';}
+    if(empty)empty.style.display='none';
+  }else{
+    if(img)img.style.display='none';
+    if(empty)empty.style.display='block';
+  }
+}
+
+async function updateShopQr(){
+  if(!shop?.id){toast('⚠️ ຍັງບໍ່ມີຮ້ານ');return;}
+  const file=document.getElementById('sellerQrUpload')?.files[0];
+  if(!file){toast('⚠️ ເລືອກຮູບ QR ກ່ອນ');return;}
+  if(!file.type.startsWith('image/')){toast('⚠️ ຮູບພາບເທົ່ານັ້ນ');return;}
+  if(file.size>5242880){toast('⚠️ ຮູບໃຫຍ່ເກີນ 5MB');return;}
+  const msg=document.getElementById('sellerQrMsg');
+  msg.textContent='ກຳລັງອັບໂຫຼດ...';msg.style.color='var(--t3)';
+  try{
+    const path=`shop-docs/${curUser.id}/qr_${Date.now()}.jpg`;
+    const{error:upErr}=await db.storage.from('product-images').upload(path,file,{upsert:true});
+    if(upErr)throw upErr;
+    const{data:u}=db.storage.from('product-images').getPublicUrl(path);
+    const qrUrl=u.publicUrl;
+    const{error:dbErr}=await db.from('shops').update({qr_code_url:qrUrl}).eq('id',shop.id);
+    if(dbErr)throw dbErr;
+    shop.qr_code_url=qrUrl;
+    localStorage.setItem('jshop_'+curUser.id,JSON.stringify(shop));
+    msg.textContent='✅ ອັບເດດ QR ສຳເລັດ';msg.style.color='var(--g)';
+    loadSellerQr();
+  }catch(e){
+    msg.textContent='❌ '+laoError(e);msg.style.color='var(--p)';
+  }
+}
+
+async function loadSellerProds(){loadSellerQr();const sn=isOwner()?'Jstar Official':(shop?.name||'');document.getElementById('sellerPgT').textContent=sn;const mp=prods.filter(p=>p.shop_name===sn||isOwner());document.getElementById('sellerPC').textContent=mp.length;document.getElementById('sellerProdList').innerHTML=mp.map(p=>`<div style="background:#fff;border:1px solid var(--bd);border-radius:11px;padding:11px;display:flex;align-items:center;gap:10px;margin-bottom:7px">${p.image_urls?.length?`<img src="${p.image_urls[0]}" style="width:48px;height:48px;border-radius:8px;object-fit:cover">`:`<div style="width:48px;height:48px;border-radius:8px;background:${p.bg_color||'#f0f0f0'};display:flex;align-items:center;justify-content:center;font-size:22px">${p.emoji||'📦'}</div>`}<div style="flex:1"><div style="font-size:13px;font-weight:600">${gname(p)}</div><div style="font-size:12px;color:var(--p);font-weight:700">₭${fmt(p.price)}</div></div><button onclick="editProd(new Event('c'),${p.id})" style="background:var(--bg);border:1px solid var(--bd);border-radius:7px;padding:5px 9px;cursor:pointer;font-size:12px">✏️</button><button onclick="delProd(new Event('c'),${p.id})" class="btn-r">🗑️</button></div>`).join('')||'<div style="text-align:center;padding:40px;color:var(--t3)">ຍັງບໍ່ມີ</div>';}
 // ============================================================
 // OWNER DASHBOARD
 // ============================================================
@@ -846,7 +944,58 @@ async function loadOrders(){const el=document.getElementById('ordersList');el.in
   done:       {l:'🎉 ສຳເລັດ',       c:'#16a34a',b:'#f0fdf4'},
   cancel:     {l:'❌ ຍົກເລີກ',      c:'#dc2626',b:'#fef2f2'},
   refund:     {l:'💸 ຄືນເງິນ',      c:'#9333ea',b:'#faf5ff'}
-};el.innerHTML=ords.map((o,i)=>{const st=sm[o.status||'pending']||sm.pending;const items=typeof o.items==='string'?JSON.parse(o.items||'[]'):(o.items||[]);const ship=typeof o.shipping_info==='string'?JSON.parse(o.shipping_info||'{}'):(o.shipping_info||{});return`<div style="background:#fff;border:1px solid var(--bd);border-radius:13px;margin:10px 15px;overflow:hidden"><div style="padding:11px 13px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;color:var(--t3)">#${o.id?.toString().slice(-6)||String(i+1).padStart(6,'0')}</span><span style="background:${st.b};color:${st.c};font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px">${st.l}</span></div>${items.slice(0,2).map(item=>`<div style="display:flex;gap:9px;padding:9px 13px;border-bottom:1px solid var(--bd)">${item.image_urls?.length?`<img src="${item.image_urls[0]}" loading="lazy" style="width:48px;height:48px;border-radius:7px;object-fit:cover">`:`<div style="width:48px;height:48px;border-radius:7px;background:${item.bg_color||'#f0f0f0'};display:flex;align-items:center;justify-content:center;font-size:22px">${item.emoji||'📦'}</div>`}<div style="flex:1"><div style="font-size:13px;font-weight:500">${item.name_lo||item.name_th||'ສິນຄ້າ'}</div><div style="font-size:13px;font-weight:700;color:var(--p)">₭${fmt(item.price)}</div></div></div>`).join('')}<div style="padding:9px 13px"><div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700"><span style="color:var(--t2)">ຍອດ</span><span style="color:var(--p)">₭${fmt(o.total_price)}</span></div>${ship.name?`<div style="font-size:11px;color:var(--t3);margin-top:3px">📬 ${ship.name} | ${ship.phone}</div>`:''} ${o.status==='shipping'?`<button onclick="confRecv('${o.id}')" style="background:var(--g);border:none;color:#fff;font-family:'Prompt',sans-serif;font-size:13px;font-weight:700;padding:8px;border-radius:8px;cursor:pointer;width:100%;margin-top:7px">✅ ໄດ້ຮັບ</button>`:''}</div></div>`;}).join('');}
+};el.innerHTML=ords.map((o,i)=>{
+  const st=sm[o.status||'pending']||sm.pending;
+  const items=typeof o.items==='string'?JSON.parse(o.items||'[]'):(o.items||[]);
+  const ship=typeof o.shipping_info==='string'?JSON.parse(o.shipping_info||'{}'):(o.shipping_info||{});
+  const tl=typeof o.timeline==='string'?JSON.parse(o.timeline||'[]'):(o.timeline||[]);
+  const ordDate=o.created_at?new Date(o.created_at):null;
+  const dateStr=ordDate?ordDate.toLocaleDateString('lo-LA',{year:'numeric',month:'short',day:'numeric'}):'';
+  const timeStr=ordDate?ordDate.toLocaleTimeString('lo-LA',{hour:'2-digit',minute:'2-digit'}):'';
+  const ordId=o.id?.toString().slice(-8)||String(i+1).padStart(8,'0');
+  return`<div style="background:#fff;border:1px solid var(--bd);border-radius:13px;margin:10px 15px;overflow:hidden">
+  <!-- Header: Order ID + Status -->
+  <div style="padding:10px 13px;background:${st.b};display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <div style="font-size:13px;font-weight:700;color:${st.c}">${st.l}</div>
+      <div style="font-size:11px;color:var(--t3);margin-top:1px">ເລກອໍເດີ: #${ordId}</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:11px;color:var(--t3)">${dateStr}</div>
+      <div style="font-size:11px;color:var(--t3)">${timeStr}</div>
+    </div>
+  </div>
+  <!-- Products -->
+  ${items.slice(0,3).map(item=>`<div style="display:flex;gap:9px;padding:9px 13px;border-bottom:1px solid var(--bd)">
+    ${item.image_urls?.length?`<img src="${item.image_urls[0]}" loading="lazy" style="width:52px;height:52px;border-radius:8px;object-fit:cover">`:`<div style="width:52px;height:52px;border-radius:8px;background:${item.bg_color||'#f5f5f5'};display:flex;align-items:center;justify-content:center;font-size:24px">${item.emoji||'📦'}</div>`}
+    <div style="flex:1;min-width:0">
+      <div style="font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${item.name_lo||item.name_th||'ສິນຄ້າ'}</div>
+      <div style="font-size:12px;color:var(--t3);margin-top:2px">x${item.qty||1} | ₭${fmt(item.price)}</div>
+      ${item.shop_name?`<div style="font-size:11px;color:var(--t3)">🏪 ${item.shop_name}</div>`:''}
+    </div>
+    <div style="font-size:13px;font-weight:700;color:var(--p);white-space:nowrap">₭${fmt(item.price*(item.qty||1))}</div>
+  </div>`).join('')}
+  ${items.length>3?`<div style="padding:7px 13px;font-size:12px;color:var(--t3);border-bottom:1px solid var(--bd)">+ ອີກ ${items.length-3} ລາຍການ</div>`:''}
+  <!-- Summary -->
+  <div style="padding:10px 13px">
+    <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;margin-bottom:6px">
+      <span style="color:var(--t2)">ລວມທັງໝົດ</span>
+      <span style="color:var(--p)">₭${fmt(o.total_price)}</span>
+    </div>
+    <div style="font-size:12px;color:var(--t3);display:flex;gap:12px;flex-wrap:wrap">
+      ${o.payment_method?`<span>💳 ${o.payment_method}</span>`:''}
+      ${ship.name?`<span>📬 ${ship.name} | ${ship.phone||''}</span>`:''}
+      ${ship.province?`<span>📍 ${ship.province}</span>`:''}
+      ${ship.company?`<span>🚚 ${ship.company}</span>`:''}
+    </div>
+    <!-- Timeline -->
+    ${tl.length?`<div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--bd)">
+      <div style="font-size:11px;color:var(--t3);margin-bottom:4px">ໄທມ໌ໄລນ໌</div>
+      ${tl.slice(-3).map(t=>{const tlSt=sm[t.status]||sm.pending;return`<div style="display:flex;gap:6px;align-items:center;font-size:11px;margin-bottom:2px"><span>${tlSt.l.split(' ')[0]}</span><span style="color:var(--t2)">${tlSt.l.split(' ').slice(1).join(' ')}</span><span style="color:var(--t3);margin-left:auto">${t.time?new Date(t.time).toLocaleString('lo-LA',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):''}</span></div>`;}).join('')}
+    </div>`:''}
+    ${o.status==='shipping'?`<button onclick="confRecv('${o.id}')" style="background:var(--g);border:none;color:#fff;font-family:'Prompt',sans-serif;font-size:13px;font-weight:700;padding:9px;border-radius:9px;cursor:pointer;width:100%;margin-top:8px">✅ ຢືນຢັນໄດ້ຮັບສິນຄ້າ</button>`:''}
+  </div>
+</div>`}).join('');}
 async function confRecv(oid){
   const tentry={status:'done',time:new Date().toISOString(),note:'ຜູ້ຊື້ຢືນຢັນໄດ້ຮັບ'};
   try{
@@ -1275,11 +1424,17 @@ async function getChatMsgs(oid){
     try{return JSON.parse(localStorage.getItem(getChatKey(oid))||'[]');}catch(e2){return[];}
   }
 }
-function chatWithShop(shopId,shopName){
+async function chatWithShop(shopId,shopName){
   if(!curUser){openM('auth');return;}
   closeDet();
   goPage('chat');
-  setTimeout(()=>openChat('shop_'+shopId,shopName,'#22c55e'),100);
+  // Look up shop owner's real user ID so RLS policy (auth.uid()=from_id) works correctly
+  let toId='shop_'+shopId;
+  try{
+    const{data}=await db.from('shops').select('owner_id').eq('id',shopId).single();
+    if(data?.owner_id)toId=data.owner_id;
+  }catch(e){console.warn('chatWithShop lookup:',e.message);}
+  setTimeout(()=>openChat(toId,shopName,'#22c55e'),100);
 }
 async function openChat(pid,pname,pcolor){
   if(!curUser){openM('auth');return;}
@@ -1330,8 +1485,8 @@ async function sendMsg(){
   if(!txt)return;
   // Security: limit message length
   if(txt.length>1000){toast('⚠️ ຂໍ້ຄວາມຍາວເກີນໄປ');return;}
-  const myId=chatMyId();
-  const myName=(shop?.status==='active'&&chatId&&chatId.startsWith('cust_'))?(shop.name||'ຮ້ານຄ້າ'):(curUser.user_metadata?.full_name||curUser.email.split('@')[0]);
+  const myId=curUser.id; // Always real UUID - required for Supabase RLS
+  const myName=shop?.status==='active'?(shop.name||curUser.user_metadata?.full_name||''):(curUser.user_metadata?.full_name||curUser.email.split('@')[0]);
   inp.value='';
   inp.disabled=true;
   try{
