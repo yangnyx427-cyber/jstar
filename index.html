@@ -330,7 +330,7 @@ textarea.fi{resize:none;}
 </nav>
 
 <!-- MODALS -->
-<div class="mbg cen" id="authModal"><div class="ms r"><div class="alogo">J★tar</div><div style="padding:0 17px 18px"><div class="atbs"><div class="atb on" id="atb1" onclick="swAuth('login')">ເຂົ້າ</div><div class="atb" id="atb2" onclick="swAuth('reg')">ສະໝັກ</div></div><div id="loginForm"><div class="ale ale-e" id="loginErr"></div><div class="fg"><label class="fl">ອີເມວ / ເບີໂທ</label><input class="fi" id="loginId" placeholder="email ຫຼື 020xxx"></div><div class="fg"><label class="fl">ລະຫັດ</label><input class="fi" id="loginPw" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div><button class="btn btn-p" onclick="doLogin()">ເຂົ້າ</button>
+<div class="mbg cen" id="authModal"><div class="ms r"><div class="alogo" style="position:relative">J★tar<button onclick="closeM('auth')" style="position:absolute;right:0;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:5px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div style="padding:0 17px 18px"><div class="atbs"><div class="atb on" id="atb1" onclick="swAuth('login')">ເຂົ້າ</div><div class="atb" id="atb2" onclick="swAuth('reg')">ສະໝັກ</div></div><div id="loginForm"><div class="ale ale-e" id="loginErr"></div><div class="fg"><label class="fl">ອີເມວ / ເບີໂທ</label><input class="fi" id="loginId" placeholder="email ຫຼື 020xxx"></div><div class="fg"><label class="fl">ລະຫັດ</label><input class="fi" id="loginPw" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div><button class="btn btn-p" onclick="doLogin()">ເຂົ້າ</button>
 <div style="text-align:center;margin-top:10px">
   <span onclick="openForgotPw()" style="font-size:13px;color:var(--p);cursor:pointer;text-decoration:underline">ລືມລະຫັດຜ່ານ?</span>
 </div></div><div id="regForm" class="h"><div class="ale ale-e" id="regErr"></div><div class="ale ale-s" id="regOk"></div><div class="fg"><label class="fl">ຊື່</label><input class="fi" id="regName" placeholder="ຊື່"></div><div class="fg"><label class="fl">ອີເມວ</label><input class="fi" id="regEmail" type="email" placeholder="email@..."></div><div class="fg"><label class="fl">ລະຫັດ</label><input class="fi" id="regPw" type="password" placeholder="6+ ຕົວ"></div><div class="fg" style="display:flex;align-items:flex-start;gap:9px"><input type="checkbox" id="agreeTerms" style="margin-top:3px;width:17px;height:17px;flex-shrink:0;accent-color:var(--p)"><label for="agreeTerms" style="font-size:12px;color:var(--t2);line-height:1.6">ຂ້າພະເຈົ້າໄດ້ອ່ານ ເຂົ້າໃຈ ແລະ ຍອມຮັບ<span onclick="event.preventDefault();openM(\'terms\')" style="color:var(--p);font-weight:600;cursor:pointer;text-decoration:underline"> ຂໍ້ກຳນົດການນຳໃຊ້</span> ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ ລະບົບເງິນກາງ ການຢືນຢັນຕົວຕົນ ແລະ ເງື່ອນໄຂທັງໝົດຂອງແພລດຟອມ</label></div><button class="btn btn-p" onclick="doReg()">ສະໝັກ</button></div></div></div></div>
@@ -1498,13 +1498,15 @@ async function sendMsg(){
   inp.disabled=true;
   try{
     const{error}=await db.from('messages').insert([{from_id:myId,from_name:myName,to_id:chatId,to_name:chatName,text:txt,read:false}]);
-    if(error)throw error;
+    if(error){
+      console.error('sendMsg RLS/DB error:',error.code,error.message,error.details);
+      toast('⚠️ '+laoError(error));
+      inp.value=txt;inp.disabled=false;return;
+    }
   }catch(e){
-    console.error('sendMsg failed:',e.message);
-    toast('⚠️ ສົ່ງຂໍ້ຄວາມບໍ່ສຳເລັດ ກວດສອບອິນເຕີເນັດ');
-    inp.value=txt; // restore text so user can retry
-    inp.disabled=false;
-    return;
+    console.error('sendMsg exception:',e.message);
+    toast('⚠️ ສົ່ງຂໍ້ຄວາມບໍ່ສຳເລັດ');
+    inp.value=txt;inp.disabled=false;return;
   }
   inp.disabled=false;
   await renderMsgs(chatId);
